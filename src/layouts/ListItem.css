@@ -1,0 +1,67 @@
+.listItem {
+  list-style: none;
+}
+.listItem__options {
+  cursor: pointer;
+  display: grid;
+  grid-template-columns: 2fr 2fr 1fr 1fr;
+}
+.listItem__option {
+  padding: 2rem;
+}
+.list__dropdown {
+  display: flex;
+  justify-content: space-between;
+  transform: scaleY(0);
+  transition: all 450ms ease-in-out;
+  transform-origin: top;
+  padding: 2rem;
+  min-height: 0;
+  max-height: 0;
+  margin-inline: 2rem;
+}
+.dropdown__info {
+  margin: 0;
+  padding: 0;
+}
+.flex__item {
+  flex: 1;
+  flex-basis: 33%;
+  flex-grow: 0;
+}
+.dropdown__info > h2 {
+  font-size: 2.4rem;
+}
+.dropdown__info > p {
+  margin-block: 1rem 2rem;
+  color: rgb(82, 82, 82);
+  width: max-content;
+}
+.active {
+  transform: scaleY(1);
+  min-height: 10rem;
+  max-height: 100rem;
+}
+.listItem--danger {
+  background-color: rgba(255, 0, 0, 0.267);
+}
+
+.listItem--cautious {
+  background-color: rgba(255, 255, 0, 0.445);
+}
+
+.listItem--good {
+  background-color: rgba(0, 128, 0, 0.603);
+}
+.dropdown__btn {
+  display: flex;
+  justify-content: space-between;
+}
+.chevron {
+  width: 2.4rem;
+  transform: rotateZ(0);
+  transition: transform 400ms ease-in-out;
+}
+.active-icon {
+  transform: rotateZ(180deg);
+}

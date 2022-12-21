@@ -1,0 +1,21 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: sans-serif;
+}
+
+html {
+  font-size: 62.5%;
+}
+
+/* @media screen and (max-width: 1000px) {
+  html {
+    font-size: 50%;
+  }
+}
+@media screen and (max-width: 500px) {
+  html {
+    font-size: 35%;
+  }
+} */

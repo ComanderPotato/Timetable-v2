@@ -1,0 +1,16 @@
+.list {
+  margin-inline: auto;
+  width: 80%;
+  font-size: 2rem;
+  font-weight: bold;
+  color: rgb(32, 32, 32);
+}
+.list__header {
+  display: grid;
+  grid-template-columns: 2fr 2fr 1fr 1fr;
+  background-color: antiquewhite;
+}
+
+.list__option {
+  padding: 2rem;
+}

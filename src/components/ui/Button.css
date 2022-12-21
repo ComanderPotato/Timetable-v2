@@ -1,0 +1,29 @@
+.btn {
+  border: none;
+  border-radius: 1ch;
+  cursor: pointer;
+  aspect-ratio: 25 / 7;
+  font-weight: bold;
+  padding-inline: .4rem;
+  font-size: 1rem;
+}
+.btn--CTA {
+  background-color: hsl(135, 76%, 42%);
+  color: white;
+}
+.btn--reset {
+  background-color: hsl(350, 76%, 42%);
+  color: white;
+}
+.btn--sm {
+  width: 10rem;
+  font-size: 1rem; 
+}
+.btn--m {
+  width: 15rem;
+  font-size: 1.6rem;
+}
+.btn--l {
+  width: 20rem;
+  font-size: 2rem;
+}
