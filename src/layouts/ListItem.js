@@ -24,12 +24,23 @@ export default function ListItem({ assignment }) {
       }
       setSeleceted(id);
     }
+  // function completeAssignment(currAssignment) {
+  //   setAssignments(
+  //     assignments.filter(a =>
+  //       a.id !== currAssignment.id
+  //     )
+  //   )
+  // }
   function completeAssignment(currAssignment) {
-    setAssignments(
-      assignments.filter(a =>
-        a.id !== currAssignment.id
-      )
-    )
+    setAssignments(assignments.map(assignment => {
+      if(assignment.id === currAssignment.id) {
+        return ({
+          ...currAssignment,
+          completed: true
+        })
+      }
+      return assignment;
+    }))
   }
   const [className, diffDays] = getDiffDays(dueDate);
   return (
@@ -55,7 +66,7 @@ export default function ListItem({ assignment }) {
           <h2>Subject Name</h2>
           <p>{subjectName}</p>
           <h2>Due Date</h2>
-          <p>{dueDate}</p>
+          <p>{new Date(dueDate).toLocaleDateString()}</p>
         </div>
         <div className='dropdown__notes flex__item'>
           <h3>Assignment Notes</h3>
