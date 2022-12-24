@@ -6,7 +6,7 @@ export default function SearchInput({ onChange, type, label, value}) {
     <div className='inputBox'>
       <input 
         type={type} 
-
+        className='styled__input'
         onChange={onChange} 
         value={value}
         ></input>

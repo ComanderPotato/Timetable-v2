@@ -4,7 +4,7 @@
   font-size: 2rem;
   outline: none;
 }
-input {
+.styled__input {
   height: 5rem;
   max-width: 25rem;
   border: 2px solid grey;
@@ -15,7 +15,7 @@ input {
   font-size: 1.6rem;
   color: rgb(68, 68, 68);
 }
-input ~ span {
+.styled__input ~ span {
   position: absolute;
   left: 8%;
   top: 50%;
@@ -27,13 +27,13 @@ input ~ span {
   color: gray;
   padding-inline: 1rem;
 }
-input:focus ~ span, input:valid ~ span{
+.styled__input:focus ~ span, .styled__input:valid ~ span{
   transform: translateY(-150%);
   background-color: rgb(37, 37, 37);
   border-radius: 5px;
   color: white;
 }
-input:focus, input:valid {
+.styled__input:focus, .styled__input:valid {
   border: 2px solid rgb(37, 37, 37);
   outline: none;
 }

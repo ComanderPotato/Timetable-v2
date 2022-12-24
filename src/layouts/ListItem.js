@@ -4,6 +4,7 @@ import './ListItem.css'
 import chevron from '../assets/chevron.svg'
 import { AssignmentsContext, AssignmentsSetterContext } from '../context/AssignmentsContext'
 import Button from '../components/ui/Button'
+import EditInput from '../components/ui/EditInput';
 
 
 export default function ListItem({ assignment, selected, setSelected }) {
@@ -11,6 +12,9 @@ export default function ListItem({ assignment, selected, setSelected }) {
     isSelected: false,
     text: assignment.note? assignment.note : ''
   });
+
+  const [editAssignment, setEditAssignment] = useState(assignment)
+
   const assignments = useContext(AssignmentsContext)
   const setAssignments = useContext(AssignmentsSetterContext)
   const {subjectId, 
@@ -24,6 +28,7 @@ export default function ListItem({ assignment, selected, setSelected }) {
     
     function toggleDropdown(id) {
       if(selected === id) {
+        
         return setSelected(null);
       }
       setSelected(id);
@@ -32,7 +37,7 @@ export default function ListItem({ assignment, selected, setSelected }) {
    setAssignments(assignments.map(assignment => {
     if(assignment.id === currAssignment.id) {
       return {
-        ...assignment,
+        ...editAssignment,
         note: noteState.text
       }
     }
@@ -43,6 +48,12 @@ export default function ListItem({ assignment, selected, setSelected }) {
       note: assignment.note
     })
   }
+  // function alterAssignment(e) {
+  //   setEditAssignment({
+  //     ...editAssignment,
+  //     [e.target.name]: e.target.value
+  //   })
+  // }
   function completeAssignment(currAssignment) {
     setAssignments(assignments.map(assignment => {
       if(assignment.id === currAssignment.id) {
@@ -55,43 +66,61 @@ export default function ListItem({ assignment, selected, setSelected }) {
     }))
     setSelected(null);
   }
-  useEffect(() => {
-    console.log(noteState);
-  }, [noteState]);
+
+
   const [className, diffDays] = GetDiffDays(dueDate, time);
   return (
     <Fragment key={id}>
       <li className={`listItem ${className}`}>
-        <div className='listItem__options' onClick={() => toggleDropdown(id)}>
+        <div className='listItem__options' onClick={() => {
+          if(!noteState.isSelected) toggleDropdown(id)
+          }}>
           <div className='listItem__option'>
-            {subjectId}
+            {noteState.isSelected ? <EditInput onChange={setEditAssignment} 
+                                               editAssignment={editAssignment}
+                                               value={editAssignment.subjectId} 
+                                               name='subjectId'/> : subjectId}
           </div>
           <div className='listItem__option'>
-            {assignmentName}
+            {noteState.isSelected ? <EditInput onChange={setEditAssignment} 
+                                               editAssignment={editAssignment} 
+                                               value={editAssignment.assignmentName} 
+                                               name='assignmentName'/> : assignmentName}
           </div>
           <div className='listItem__option'>
             {diffDays}
           </div>
           <div className='listItem__option dropdown__btn'>
-            <span>{percentage}</span>
+            <span>{noteState.isSelected ? <EditInput onChange={setEditAssignment} 
+                                               editAssignment={editAssignment} 
+                                               value={editAssignment.percentage} 
+                                               name='percentage'
+                                               type='number'/> : percentage}</span>
             <img className={`chevron ${selected === id ? 'active-icon' : ''}`} src={chevron}/>
           </div>
         </div>
       <div key={id} className={`list__dropdown ${selected === id ? 'active' : ''}`}>
         <div className='dropdown__info flex__item'>
           <h2>Subject Name</h2>
-          <p>{subjectName}</p>
+          <p>{noteState.isSelected ? <EditInput onChange={setEditAssignment} 
+                                               editAssignment={editAssignment} 
+                                               value={editAssignment.subjectName} 
+                                               name='subjectName'/> : subjectName}</p>
           <h2>Due Date</h2>
-          <p>{new Date(dueDate).toLocaleDateString()}</p>
+          <p>{noteState.isSelected ? <EditInput onChange={setEditAssignment} 
+                                               editAssignment={editAssignment} 
+                                               value={editAssignment.dueDate} 
+                                               name='dueDate'
+                                               type='date'/> : new Date(dueDate).toLocaleDateString()}</p>
         </div>
         <div className='dropdown__notes flex__item'>
-          <h3>Assignment Notes</h3>
+          <h2>Assignment Notes</h2>
             {noteState.isSelected ? (
-            <textarea value={assignment.notes ? assignment.notes : noteState.text} onChange={(e) => setNoteState({
+            <textarea value={assignment.notes ? assignment.notes : noteState.text} name='note' autoFocus={true} onChange={(e) => setNoteState({
               ...noteState,
               text: e.target.value
             })}></textarea>
-            ): (assignment.note? assignment.note : 'Add your note here')}
+            ): (assignment.note? <p>{assignment.note}</p> : <p>Add your notes here...</p>)}
         </div>
         <div className='dropdown__btns flex__item'>
           <Button onClick={() => completeAssignment(assignment)} className='btn--CTA btn--m'>

@@ -12,6 +12,7 @@ export default function FormInput({label, type, onChange, value, assignment, nam
         style={{
           width: width
         }}
+        className='styled__input'
         onChange={e => onChange({
                     ...assignment,
                     [e.target.name]:e.target.value

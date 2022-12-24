@@ -1,0 +1,11 @@
+.edit__inputs[type=text] {
+  width: 15rem;
+}
+.edit__inputs{
+  border: none;
+  font-size: 2rem;
+  height: 3rem;
+}
+.edit__inputs[type=date] {
+  width: 14rem;
+}
