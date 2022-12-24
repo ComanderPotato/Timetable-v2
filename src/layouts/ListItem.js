@@ -1,4 +1,4 @@
-import React, {Fragment, useContext, useState} from 'react'
+import React, {Fragment, useContext, useState, useEffect} from 'react'
 import GetDiffDays from '../utils/GetDiffDays';
 import './ListItem.css'
 import chevron from '../assets/chevron.svg'
@@ -7,7 +7,10 @@ import Button from '../components/ui/Button'
 
 
 export default function ListItem({ assignment, selected, setSelected }) {
-
+  const [noteState, setNoteState] = useState({
+    isSelected: false,
+    text: assignment.note? assignment.note : ''
+  });
   const assignments = useContext(AssignmentsContext)
   const setAssignments = useContext(AssignmentsSetterContext)
   const {subjectId, 
@@ -17,7 +20,7 @@ export default function ListItem({ assignment, selected, setSelected }) {
     time, 
     percentage, 
     completed, 
-    id} = assignment;
+    id } = assignment;
     
     function toggleDropdown(id) {
       if(selected === id) {
@@ -25,13 +28,21 @@ export default function ListItem({ assignment, selected, setSelected }) {
       }
       setSelected(id);
     }
-  // function completeAssignment(currAssignment) {
-  //   setAssignments(
-  //     assignments.filter(a =>
-  //       a.id !== currAssignment.id
-  //     )
-  //   )
-  // }
+  function addNote(currAssignment) {
+   setAssignments(assignments.map(assignment => {
+    if(assignment.id === currAssignment.id) {
+      return {
+        ...assignment,
+        note: noteState.text
+      }
+    }
+    return assignment
+   }))
+    setNoteState({
+      isSelected: !noteState.isSelected,
+      note: assignment.note
+    })
+  }
   function completeAssignment(currAssignment) {
     setAssignments(assignments.map(assignment => {
       if(assignment.id === currAssignment.id) {
@@ -44,6 +55,9 @@ export default function ListItem({ assignment, selected, setSelected }) {
     }))
     setSelected(null);
   }
+  useEffect(() => {
+    console.log(noteState);
+  }, [noteState]);
   const [className, diffDays] = GetDiffDays(dueDate, time);
   return (
     <Fragment key={id}>
@@ -72,11 +86,29 @@ export default function ListItem({ assignment, selected, setSelected }) {
         </div>
         <div className='dropdown__notes flex__item'>
           <h3>Assignment Notes</h3>
+            {noteState.isSelected ? (
+            <textarea value={assignment.notes ? assignment.notes : noteState.text} onChange={(e) => setNoteState({
+              ...noteState,
+              text: e.target.value
+            })}></textarea>
+            ): (assignment.note? assignment.note : 'Add your note here')}
         </div>
         <div className='dropdown__btns flex__item'>
           <Button onClick={() => completeAssignment(assignment)} className='btn--CTA btn--m'>
             Complete Assignment
           </Button>
+          {
+            noteState.isSelected ? (
+            <Button onClick={() => addNote(assignment)} className='btn--CTA btn--m'>
+              Save
+          </Button>) : (
+            <Button onClick={() => setNoteState({
+              text: assignment.note,
+              isSelected: !noteState.isSelected
+            })} className='btn--CTA btn--m'>
+              Edit
+          </Button>) 
+          }
         </div>
       </div>
       </li>

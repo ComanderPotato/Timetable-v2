@@ -57,7 +57,7 @@ export default function List() {
           
         })}
       </ul>
-      <div className='sidebar'>
+      {/* <div className='sidebar'>
         <div className='tabBar'>
           <div className='tab1'>
 
@@ -67,7 +67,7 @@ export default function List() {
           </div>
         </div>
         <h1>Hello</h1>
-      </div>
+      </div> */}
     </div>
   )
 }

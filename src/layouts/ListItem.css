@@ -65,3 +65,8 @@
 .active-icon {
   transform: rotateZ(180deg);
 }
+.dropdown__btns {
+ display: grid;
+ place-content: center;
+ gap: 5rem;
+}
