@@ -1,12 +1,13 @@
 import React, {Fragment, useContext, useState} from 'react'
-import getDiffDays from '../utils/getDiffDays';
+import GetDiffDays from '../utils/GetDiffDays';
 import './ListItem.css'
 import chevron from '../assets/chevron.svg'
 import { AssignmentsContext, AssignmentsSetterContext } from '../context/AssignmentsContext'
 import Button from '../components/ui/Button'
-export default function ListItem({ assignment }) {
 
-  const [selected, setSeleceted] = useState(null)
+
+export default function ListItem({ assignment, selected, setSelected }) {
+
   const assignments = useContext(AssignmentsContext)
   const setAssignments = useContext(AssignmentsSetterContext)
   const {subjectId, 
@@ -18,11 +19,11 @@ export default function ListItem({ assignment }) {
     completed, 
     id} = assignment;
     
-    function handleDropdown(id) {
+    function toggleDropdown(id) {
       if(selected === id) {
-        return setSeleceted(null);
+        return setSelected(null);
       }
-      setSeleceted(id);
+      setSelected(id);
     }
   // function completeAssignment(currAssignment) {
   //   setAssignments(
@@ -41,12 +42,13 @@ export default function ListItem({ assignment }) {
       }
       return assignment;
     }))
+    setSelected(null);
   }
-  const [className, diffDays] = getDiffDays(dueDate);
+  const [className, diffDays] = GetDiffDays(dueDate, time);
   return (
     <Fragment key={id}>
-      <li className={`listItem ${className}`} onClick={() => handleDropdown(id)}>
-        <div className='listItem__options'>
+      <li className={`listItem ${className}`}>
+        <div className='listItem__options' onClick={() => toggleDropdown(id)}>
           <div className='listItem__option'>
             {subjectId}
           </div>

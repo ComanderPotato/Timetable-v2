@@ -38,8 +38,7 @@ input:focus, input:valid {
   outline: none;
 }
 
-.input--number {
-
+/* .input--number {
   position: relative;
 }
 .input--number::after {
@@ -47,4 +46,4 @@ input:focus, input:valid {
   position: absolute;
   width: 10rem;
   height: 10rem;
-}
+} */
