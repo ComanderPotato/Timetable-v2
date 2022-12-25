@@ -1,11 +1,11 @@
-import React, {Fragment, useContext, useState, useEffect} from 'react'
+import React, {Fragment, useContext, useState} from 'react'
 import GetDiffDays from '../utils/GetDiffDays';
 import './ListItem.css'
 import chevron from '../assets/chevron.svg'
 import { AssignmentsContext, AssignmentsSetterContext } from '../context/AssignmentsContext'
 import Button from '../components/ui/Button'
 import EditInput from '../components/ui/EditInput';
-
+import Modal from '../components/ui/Modal';
 
 export default function ListItem({ assignment, selected, setSelected }) {
   const [noteState, setNoteState] = useState({
@@ -13,6 +13,7 @@ export default function ListItem({ assignment, selected, setSelected }) {
     text: assignment.note? assignment.note : ''
   });
 
+  const [modalIsOpen, setModalIsOpen] = useState(false);
   const [editAssignment, setEditAssignment] = useState(assignment)
 
   const assignments = useContext(AssignmentsContext)
@@ -23,12 +24,14 @@ export default function ListItem({ assignment, selected, setSelected }) {
     dueDate, 
     time, 
     percentage, 
-    completed, 
     id } = assignment;
     
     function toggleDropdown(id) {
+      setNoteState({
+        ...noteState,
+        isSelected: false
+      })
       if(selected === id) {
-        
         return setSelected(null);
       }
       setSelected(id);
@@ -44,36 +47,22 @@ export default function ListItem({ assignment, selected, setSelected }) {
     return assignment
    }))
     setNoteState({
-      isSelected: !noteState.isSelected,
+      isSelected: false,
       note: assignment.note
     })
   }
-  // function alterAssignment(e) {
-  //   setEditAssignment({
-  //     ...editAssignment,
-  //     [e.target.name]: e.target.value
-  //   })
-  // }
-  function completeAssignment(currAssignment) {
-    setAssignments(assignments.map(assignment => {
-      if(assignment.id === currAssignment.id) {
-        return ({
-          ...currAssignment,
-          completed: true
-        })
-      }
-      return assignment;
-    }))
-    setSelected(null);
-  }
 
+  function deleteAssignment(currAssignment) {
+    setAssignments(assignments
+      .filter(assignment => currAssignment.id !== assignment.id))
+  }
 
   const [className, diffDays] = GetDiffDays(dueDate, time);
   return (
     <Fragment key={id}>
       <li className={`listItem ${className}`}>
         <div className='listItem__options' onClick={() => {
-          if(!noteState.isSelected) toggleDropdown(id)
+          if(!noteState.isSelected) toggleDropdown(id, assignment)
           }}>
           <div className='listItem__option'>
             {noteState.isSelected ? <EditInput onChange={setEditAssignment} 
@@ -96,7 +85,7 @@ export default function ListItem({ assignment, selected, setSelected }) {
                                                value={editAssignment.percentage} 
                                                name='percentage'
                                                type='number'/> : percentage}</span>
-            <img className={`chevron ${selected === id ? 'active-icon' : ''}`} src={chevron}/>
+            <img className={`chevron ${selected === id ? 'active-icon' : ''}`} src={chevron} alt=""/>
           </div>
         </div>
       <div key={id} className={`list__dropdown ${selected === id ? 'active' : ''}`}>
@@ -107,11 +96,16 @@ export default function ListItem({ assignment, selected, setSelected }) {
                                                value={editAssignment.subjectName} 
                                                name='subjectName'/> : subjectName}</p>
           <h2>Due Date</h2>
-          <p>{noteState.isSelected ? <EditInput onChange={setEditAssignment} 
+          <p>{noteState.isSelected ? (<><EditInput onChange={setEditAssignment} 
                                                editAssignment={editAssignment} 
                                                value={editAssignment.dueDate} 
                                                name='dueDate'
-                                               type='date'/> : new Date(dueDate).toLocaleDateString()}</p>
+                                               type='date'/>
+                                               <EditInput onChange={setEditAssignment} 
+                                               editAssignment={editAssignment} 
+                                               value={editAssignment.time} 
+                                               name='time'
+                                               type='time'/></>) : `${new Date(dueDate).toLocaleDateString()} at ${time}`}</p>
         </div>
         <div className='dropdown__notes flex__item'>
           <h2>Assignment Notes</h2>
@@ -123,23 +117,30 @@ export default function ListItem({ assignment, selected, setSelected }) {
             ): (assignment.note? <p>{assignment.note}</p> : <p>Add your notes here...</p>)}
         </div>
         <div className='dropdown__btns flex__item'>
-          <Button onClick={() => completeAssignment(assignment)} className='btn--CTA btn--m'>
+          <Button onClick={() => setModalIsOpen(!modalIsOpen)} className='btn--CTA btn--sm'>
             Complete Assignment
+          </Button>
+          {/* <Button onClick={() => completeAssignment(assignment)} className='btn--CTA btn--sm'>
+            Complete Assignment
+          </Button> */}
+          <Button onClick={() => deleteAssignment(assignment)} className='btn--reset btn--sm'>
+            Delete Assignment
           </Button>
           {
             noteState.isSelected ? (
-            <Button onClick={() => addNote(assignment)} className='btn--CTA btn--m'>
+            <Button onClick={() => addNote(assignment)} className='btn--CTA btn--sm'>
               Save
           </Button>) : (
             <Button onClick={() => setNoteState({
               text: assignment.note,
               isSelected: !noteState.isSelected
-            })} className='btn--CTA btn--m'>
+            })} className='btn--CTA btn--sm'>
               Edit
           </Button>) 
           }
         </div>
       </div>
+      {modalIsOpen && <Modal onClose={() => setModalIsOpen(!modalIsOpen)} setSelected={setSelected} assignment={assignment}/>}
       </li>
     </Fragment>
   )

@@ -1,0 +1,59 @@
+.modal__wrapper {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.692);
+  z-index: 1000;
+}
+.modal {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: #fff;
+  padding: 3rem;
+  z-index: 1000;
+  width: 50rem;
+  border-radius: 1rem;
+}
+
+.modal__inputs {
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1rem;
+}
+.modal__inputs input {
+  width: 100% !important;
+}
+.modal__btns {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+}
+.error {
+  font-size: 1.7rem;
+  color: red;
+}
+.error {
+  border: red solid 2px;
+  animation: error 200ms ease-in-out;
+  animation: name duration timing-function delay iteration-count direction fill-mode;
+}
+
+@keyframes error {
+  0% {
+    scale: 1.03;
+    rotate: 3deg;
+  }
+  50% {
+    scale: 0.99;
+    rotate: -3deg;
+  }
+  100% {
+    scale: 1;
+    rotate: 0;
+  }
+}

@@ -4,7 +4,7 @@ import FormInput from '../components/form/FormInput';
 import Button from '../components/ui/Button'
 import { AssignmentsContext, AssignmentsSetterContext } from '../context/AssignmentsContext';
 import SubmitButton from '../components/ui/SubmitButton';
-
+import { getIdSuggestions, getNameSuggestions } from '../utils/getSuggestions';
 const assignmentStock = {
   subjectId: '',
   subjectName: '',
@@ -19,6 +19,7 @@ export default function Form() {
   const setAssignments = useContext(AssignmentsSetterContext);
   const [assignment, setAssignment] = useState(assignmentStock)
   
+  const [sugg, setSugg] = useState([])
 
   useEffect(() => {
     localStorage.setItem('assignments', JSON.stringify(assignments))
@@ -43,11 +44,28 @@ export default function Form() {
       
       setAssignment(assignmentStock)
   }
-  function clearFields(e) {
-    e.preventDefault();
+  function clearFields() {
     setAssignments([]);
     localStorage.clear('assignments', []);
   }
+  useEffect(() => {
+    if(assignment.subjectId === "") return
+    else {
+      getNameSuggestions(assignment.subjectId, assignments).then(found => {
+        setSugg([...new Set(found.map(a=> a.subjectId))])
+      })
+      console.log(sugg)
+    }
+    },[assignment.subjectId])
+    useEffect(() => {
+      if(assignment.subjectName === "") return
+    else {
+      getIdSuggestions(assignment.subjectName, assignments).then(found => {
+        setSugg([...new Set(found.map(a=> a.subjectName))])
+      })
+      console.log(sugg)
+    }
+  }, [assignment.subjectName])
   return (
     <form className='form' onSubmit={handleAdd}>
       <FormInput label='Subject ID' type='text' name='subjectId' onChange={setAssignment} value={assignment.subjectId} assignment={assignment}/>
@@ -56,6 +74,8 @@ export default function Form() {
       <FormInput label='Due Date' type='date' name='dueDate' onChange={setAssignment} value={assignment.dueDate} assignment={assignment}/>
       <FormInput label='Time' type='time' name='time' onChange={setAssignment} value={assignment.time} assignment={assignment}/>
       <FormInput label='Percentage' type='number' name='percentage' onChange={setAssignment} value={assignment.percentage} assignment={assignment}/>
+
+      {sugg.length > 0 && sugg.map(a => <h1>{a}</h1>)}
 
       <div className='form__btns'>
         <SubmitButton className='btn--CTA btn--m'>

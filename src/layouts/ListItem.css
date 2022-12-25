@@ -71,7 +71,7 @@
 .dropdown__btns {
  display: grid;
  place-content: center;
- gap: 5rem;
+ gap: 2rem;
 }
 
 textarea {
@@ -80,4 +80,5 @@ textarea {
   font-size: 1.6rem;
   resize: none;
   padding: .4rem;
+  font-size: 2rem;
 }
