@@ -2,10 +2,12 @@
   width: 15rem;
 }
 .edit__inputs{
+  font-weight: bold;
   border: none;
   font-size: 2rem;
-  height: 3rem;
+  height: 2ch;
 }
 .edit__inputs[type=date] {
-  width: 14rem;
+  width: 13rem;
+
 }

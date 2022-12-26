@@ -1,5 +1,5 @@
 import React, {Fragment, useContext, useState} from 'react'
-import GetDiffDays from '../utils/GetDiffDays';
+import getDiffDays from '../utils/getDiffDays';
 import './ListItem.css'
 import chevron from '../assets/chevron.svg'
 import { AssignmentsContext, AssignmentsSetterContext } from '../context/AssignmentsContext'
@@ -8,6 +8,13 @@ import EditInput from '../components/ui/EditInput';
 import Modal from '../components/ui/Modal';
 
 export default function ListItem({ assignment, selected, setSelected }) {
+  const {subjectId, 
+    subjectName, 
+    assignmentName, 
+    dueDate, 
+    time, 
+    percentage, 
+    id } = assignment;
   const [noteState, setNoteState] = useState({
     isSelected: false,
     text: assignment.note? assignment.note : ''
@@ -18,13 +25,6 @@ export default function ListItem({ assignment, selected, setSelected }) {
 
   const assignments = useContext(AssignmentsContext)
   const setAssignments = useContext(AssignmentsSetterContext)
-  const {subjectId, 
-    subjectName, 
-    assignmentName, 
-    dueDate, 
-    time, 
-    percentage, 
-    id } = assignment;
     
     function toggleDropdown(id) {
       setNoteState({
@@ -36,6 +36,8 @@ export default function ListItem({ assignment, selected, setSelected }) {
       }
       setSelected(id);
     }
+
+    
   function addNote(currAssignment) {
    setAssignments(assignments.map(assignment => {
     if(assignment.id === currAssignment.id) {
@@ -57,7 +59,7 @@ export default function ListItem({ assignment, selected, setSelected }) {
       .filter(assignment => currAssignment.id !== assignment.id))
   }
 
-  const [className, diffDays] = GetDiffDays(dueDate, time);
+  const [className, diffDays] = getDiffDays(dueDate, time);
   return (
     <Fragment key={id}>
       <li className={`listItem ${className}`}>
