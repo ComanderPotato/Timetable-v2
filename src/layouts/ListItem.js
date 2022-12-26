@@ -1,5 +1,5 @@
 import React, {Fragment, useContext, useState} from 'react'
-import getDiffDays from '../utils/GetDiffDays';
+import getDiffDays from '../utils/getDiffDays';
 import './ListItem.css'
 import chevron from '../assets/chevron.svg'
 import { AssignmentsContext, AssignmentsSetterContext } from '../context/AssignmentsContext'
