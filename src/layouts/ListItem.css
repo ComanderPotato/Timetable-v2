@@ -27,6 +27,7 @@
 .dropdown__notes {
   justify-items: start;
 }
+
 .flex__item  p {
   width: 40rem;
   word-wrap: break-word;
@@ -64,6 +65,7 @@
   width: 2.4rem;
   transform: rotateZ(0);
   transition: transform 400ms ease-in-out;
+  user-select: none;
 }
 .active-icon {
   transform: rotateZ(180deg);

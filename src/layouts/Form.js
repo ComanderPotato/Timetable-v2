@@ -2,9 +2,9 @@ import React, { useState, useEffect, useContext } from 'react'
 import './Form.css'
 import FormInput from '../components/form/FormInput';
 import Button from '../components/ui/Button'
-import { AssignmentsContext, AssignmentsSetterContext } from '../context/AssignmentsContext';
 import SubmitButton from '../components/ui/SubmitButton';
 import { getIdSuggestions, getNameSuggestions } from '../utils/getSuggestions';
+import { useAssignmentsState, useAssignmentsStateDispatch, ACTIONS } from '../context/AssignmentContext';
 const assignmentStock = {
   subjectId: '',
   subjectName: '',
@@ -15,8 +15,8 @@ const assignmentStock = {
   completed: false
 }
 export default function Form() {
-  const assignments = useContext(AssignmentsContext);
-  const setAssignments = useContext(AssignmentsSetterContext);
+  const dispatch = useAssignmentsStateDispatch();
+  const {assignments} = useAssignmentsState();
   const [assignment, setAssignment] = useState(assignmentStock)
   
   const [sugg, setSugg] = useState([])
@@ -33,39 +33,22 @@ export default function Form() {
 
   function handleAdd(event) {
       event.preventDefault();
-
-      setAssignments([
-        ...assignments,
-        {
-          ...assignment,
-          id: crypto.randomUUID()
+      dispatch({
+        type: ACTIONS.ADD_ASSIGNMENT,
+        payload: {
+          assignment: {
+            ...assignment,
+            id: crypto.randomUUID()
+          }
         }
-      ])
-      
+      })
       setAssignment(assignmentStock)
   }
   function clearFields() {
-    setAssignments([]);
+    // setAssignments([]);
     localStorage.clear('assignments', []);
   }
-  useEffect(() => {
-    if(assignment.subjectId === "") return
-    else {
-      getNameSuggestions(assignment.subjectId, assignments).then(found => {
-        setSugg([...new Set(found.map(a=> a.subjectId))])
-      })
-      console.log(sugg)
-    }
-    },[assignment.subjectId])
-    useEffect(() => {
-      if(assignment.subjectName === "") return
-    else {
-      getIdSuggestions(assignment.subjectName, assignments).then(found => {
-        setSugg([...new Set(found.map(a=> a.subjectName))])
-      })
-      console.log(sugg)
-    }
-  }, [assignment.subjectName])
+ 
   return (
     <form className='form' onSubmit={handleAdd}>
       <FormInput label='Subject ID' type='text' name='subjectId' onChange={setAssignment} value={assignment.subjectId} assignment={assignment}/>
@@ -75,7 +58,7 @@ export default function Form() {
       <FormInput label='Time' type='time' name='time' onChange={setAssignment} value={assignment.time} assignment={assignment}/>
       <FormInput label='Percentage' type='number' name='percentage' onChange={setAssignment} value={assignment.percentage} assignment={assignment}/>
 
-      {sugg.length > 0 && sugg.map(a => <h1>{a}</h1>)}
+      {/* {sugg.length > 0 && sugg.map(a => <h1>{a}</h1>)} */}
 
       <div className='form__btns'>
         <SubmitButton className='btn--CTA btn--m'>
@@ -93,3 +76,21 @@ export default function Form() {
 }
 
 
+// useEffect(() => {
+//   if(assignment.subjectId === "") return
+//   else {
+//     getNameSuggestions(assignment.subjectId, assignments).then(found => {
+//       setSugg([...new Set(found.map(a=> a.subjectId))])
+//     })
+//     console.log(sugg)
+//   }
+//   },[assignment.subjectId])
+//   useEffect(() => {
+//     if(assignment.subjectName === "") return
+//   else {
+//     getIdSuggestions(assignment.subjectName, assignments).then(found => {
+//       setSugg([...new Set(found.map(a=> a.subjectName))])
+//     })
+//     console.log(sugg)
+//   }
+// }, [assignment.subjectName])
