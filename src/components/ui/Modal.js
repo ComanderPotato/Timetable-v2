@@ -32,10 +32,11 @@ export default function Modal({onClose, assignment, setSelected}) {
     })
       setMarks(initialMarks)
       setSelected(null);
- 
+      onClose();
   }
 
   // Work on error message and design of modal
+  // Modal doesnt close when submitted marks
   return (
     <div className='modal__wrapper' onClick={onClose}>
       <div className='modal' onClick={(e) => e.stopPropagation()}>

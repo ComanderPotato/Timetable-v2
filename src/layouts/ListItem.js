@@ -1,10 +1,8 @@
 
-import React, { Fragment, useContext, useState } from "react";
+import React, { Fragment, useState } from "react";
 import getDiffDays from "../utils/getDiffDays";
 import "./ListItem.css";
 import chevron from "../assets/chevron.svg";
-import Button from "../components/ui/Button";
-import EditInput from "../components/ui/EditInput";
 import Modal from "../components/ui/Modal";
 import {
   useAssignmentsStateDispatch,
@@ -18,7 +16,6 @@ export default function ListItem({ assignment, selected }) {
   const dispatch = useAssignmentsStateDispatch();
   const {
     subjectId,
-    subjectName,
     assignmentName,
     dueDate,
     time,

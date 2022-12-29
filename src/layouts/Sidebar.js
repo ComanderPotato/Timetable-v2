@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { useAssignmentsState } from "../context/AssignmentContext";
+import './Sidebar.css'
 function Sidebar() {
   const { assignments } = useAssignmentsState();
   const [subjectResults, setSubjectResults] = useState([]);
-
+  
   
   useEffect(() => {
     let viewTotalMarks = true;
@@ -22,7 +23,6 @@ function Sidebar() {
       {}
     ))
     setSubjectResults([...assignmentsReduced.map(result => {
-      if (!viewTotalMarks) {
         const percentage = Math.round((result.mark / result.totalMark) * 100);
         const mark = Math.round(
           (result.mark / result.totalMark) * result.percentage
@@ -35,10 +35,10 @@ function Sidebar() {
           totalMark: result.percentage,
           grade: grade,
         };
-      }
+
     })])   
   }, [assignments]);
-
+  console.log(subjectResults)
   return (
     <div className="sidebar">
       {subjectResults.map(results => (
@@ -57,6 +57,5 @@ function getGrade(percentage) {
   if (percentage >= 75) return "D";
   if (percentage >= 65) return "C";
   if (percentage >= 50) return "P";
-
   return "F";
 }

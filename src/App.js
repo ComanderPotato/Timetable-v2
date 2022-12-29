@@ -10,7 +10,7 @@ function App() {
     <div className='app'>
       <AssignmentsStateProvider>
         {/* Header Component */}
-        <Header />
+        <Header/>
           <div className='app__body'>
             <Form />
             <List/>
