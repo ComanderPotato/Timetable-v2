@@ -10,6 +10,7 @@
 
 .list__header__complete {
   display: grid;
-  grid-template-columns: 3fr 1fr 1fr 2fr 2fr;
+  /* grid-template-columns: 3fr 3fr 1fr 2fr 2fr; */
+  grid-template-columns: 2fr 2fr 1fr 1fr 1fr;  
   background-color: antiquewhite;
 }

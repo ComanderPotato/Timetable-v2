@@ -16,6 +16,7 @@ export default function Dropdown({
   selected,
   modalIsOpen,
   setModalIsOpen,
+  className
 }) {
   // assignment variables: id, subjecName, time, dueDate
   const { id, subjectName, time, dueDate } = assignment;

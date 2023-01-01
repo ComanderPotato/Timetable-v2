@@ -16,6 +16,7 @@
   transition: all 450ms ease-in-out;
   transform-origin: top;
   padding: 2rem;
+  padding-bottom: 0;
   min-height: 0;
   max-height: 0;
   margin-inline: 2rem;
@@ -47,15 +48,15 @@
   max-height: 100rem;
 }
 .listItem--danger {
-  background-color: rgba(255, 0, 0, 0.267);
+  background-color: rgba(255, 0, 0, 0.35);
 }
 
 .listItem--cautious {
-  background-color: rgba(255, 255, 0, 0.445);
+  background-color: rgba(255, 255, 0, 0.35);
 }
 
 .listItem--good {
-  background-color: rgba(0, 128, 0, 0.603);
+  background-color: rgba(0, 128, 0, 0.35);
 }
 .dropdown__btn {
   display: flex;
@@ -82,4 +83,10 @@ textarea {
   font-size: 1.6rem;
   resize: none;
   font-size: 2rem;
+}
+
+.listItem__options__completed {
+  display: grid;
+  cursor: pointer;
+  grid-template-columns: 3fr 1fr 1fr 2fr 2fr;
 }

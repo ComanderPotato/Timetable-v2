@@ -1,0 +1,87 @@
+.listItemC {
+  list-style: none;
+  /* border: 1px black solid; */
+  /* border-bottom: none;
+  border-collapse: collapse; */
+}
+.listItemC:last-child {
+  /* border-bottom: 1px black solid; */
+}
+.listItemC__options {
+  display: grid; 
+  cursor: pointer;
+  grid-template-columns: 2fr 2fr 1fr 1fr 1fr;  
+  align-items: center;
+}
+
+.listItemC__option {
+  padding: 2rem;
+}
+.C__dropdown {
+  /* display: grid;
+  grid-template-columns: 1fr 2fr 1fr; */
+  transform: scaleY(0);
+  transition: all 450ms ease-in-out;
+  transform-origin: top;
+  padding: 2rem;
+  min-height: 0;
+  max-height: 0;
+  margin-inline: 2rem;
+
+}
+.C__dropdown form:nth-child(2n) {
+  background-color: rgb(233, 233, 233);
+}
+.active {
+  transform: scaleY(1);
+  min-height: 10rem;
+  max-height: 100rem;
+}
+.CD__options {
+  padding: 1rem;
+  display: grid;
+  align-items: center;
+  grid-template-columns: 1.5fr .5fr .5fr 1fr 1fr .5fr 1fr;
+}
+.CD__options div {
+  min-width: 0;
+  /* overflow: hidden; */
+  padding: 1rem;
+  word-wrap: break-word;
+}
+.CD__header {
+  display: grid;
+  padding: 1rem;
+  grid-template-columns: 1.5fr .5fr .5fr 1fr 1fr .5fr 1fr;
+  background-color:rgb(255, 246, 229);
+}
+.CD__header div {
+  padding: 1rem;
+}
+.CD__btn__container {
+  display: flex;
+  justify-content: end;
+  gap: 4rem;
+  align-items: center;
+}
+.DD__icon {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.deleteIcon {
+  width: 3rem;
+  transition: 400ms ease-in-out all;
+  cursor: pointer;
+}
+.deleteIcon:hover {
+  scale: 1.05;
+}
+
+
+
+.sub {
+  border: none;
+  background-color: inherit;
+}

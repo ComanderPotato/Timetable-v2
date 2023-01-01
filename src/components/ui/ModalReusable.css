@@ -15,21 +15,6 @@
   background-color: #fff;
   padding: 3rem;
   z-index: 1000;
+  width: 50rem;
   border-radius: 1rem;
 }
-
-.modal__inputs {
-  width: 100%;
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 1rem;
-}
-.modal__inputs input {
-  width: 100% !important;
-}
-.modal__btns {
-  display: flex;
-  justify-content: center;
-  gap: 1rem;
-}
-

@@ -1,6 +1,6 @@
 import React from 'react'
 
-export default function EditInputTest({ condition, onChange, editAssignment, value, name, text, type}) {
+export default function EditInputTest({ condition, onChange, editAssignment, value, name, text, type, max}) {
   return (
     <>
       {condition ? 
@@ -12,7 +12,8 @@ export default function EditInputTest({ condition, onChange, editAssignment, val
                value={value}
                name={name}
                className='edit__inputs'
-               min='0' max='100' required/>
+               min='0' max={max ? max : '100'} required
+               step='0.01'/>
        : 
       text}
     </>

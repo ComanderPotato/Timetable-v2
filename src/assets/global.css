@@ -7,15 +7,27 @@
 
 html {
   font-size: 62.5%;
+  overflow-y: overlay;
+
 }
 
-/* @media screen and (max-width: 1000px) {
+@media screen and (max-width: 1200px) {
+  html {
+    font-size: 55%;
+  }
+}
+@media screen and (max-width: 1000px) {
   html {
     font-size: 50%;
   }
-}
-@media screen and (max-width: 500px) {
+  /* .app__body {
+    margin:  0;
+  } */
+} 
+@media screen and (max-width: 600px) {
   html {
-    font-size: 35%;
+    font-size: 40%;
   }
-} */
+} 
+
+

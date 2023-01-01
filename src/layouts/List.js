@@ -5,13 +5,14 @@ import Button from '../components/ui/Button'
 import SearchInput from '../components/ui/SearchInput'
 import ListHeader from './ListHeader'
 import Sidebar from './Sidebar'
+import ListItemCompleted from './ListItemCompleted'
 import { useAssignmentsState, useAssignmentsStateDispatch, ACTIONS } from '../context/AssignmentContext';
 export default function List() {
   
 
   const { assignments, dropdownSelectedState, viewCompleted } = useAssignmentsState();
   const dispatch = useAssignmentsStateDispatch();
-
+  const [isEntireSemester, setIsEntireSemester] = useState(false);
 
   const [query, setQuery] = useState('')
   
@@ -42,6 +43,7 @@ export default function List() {
     }
   return (
     <div className='list'>
+
       <div className='list__filter'>
         <div>
           <SearchInput onChange={e => setQuery(e.target.value)} type="search" value={query} label="Filter Assignments"/>
@@ -49,16 +51,21 @@ export default function List() {
             <Button onClick={setViewCompleted} className='btn--CTA btn--m'>
                   {viewCompleted ? 'View in progress' : 'View Completed'}
             </Button>
+            
           </div>
+          
         </div>
       </div>
+      { viewCompleted && <input type='checkbox' value={isEntireSemester} onChange={() => setIsEntireSemester(!isEntireSemester)}/>}
+
+      {/* <Sidebar/> */}
         <ListHeader />
       <ul>
-        {filteredItems.filter(assignment => assignment.completed === viewCompleted).map(
+        {/* {filteredItems.filter(assignment => assignment.completed === viewCompleted).map(
           assignment => <ListItem assignment={assignment} selected={dropdownSelectedState}/>
-        )}
+        )} */}
+        {viewCompleted ? <ListItemCompleted selected={dropdownSelectedState} entireSemester={isEntireSemester}/> :  filteredItems.filter(assignment => !assignment.completed).map(assignment => <ListItem assignment={assignment} selected={dropdownSelectedState}/>)}
       </ul>
-      {/* <Sidebar/> */}
     </div>
   )
 }

@@ -1,0 +1,16 @@
+.icon--sm {
+  width: 3rem;
+}
+
+.icon--m {
+  width: 6rem;
+}
+
+.icon--l {
+  width: 9rem;
+}
+.icon {
+  border: none;
+  cursor: pointer;
+  background-color: inherit;
+}

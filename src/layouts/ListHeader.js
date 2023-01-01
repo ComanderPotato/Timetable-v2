@@ -27,21 +27,16 @@ export default function ListHeader() {
   return (
     <>
       {viewCompleted ? (
-        <div className={`list__header${viewCompleted && "__complete"}`}>
-          <div className="list__option header__filter" onClick={sortArrayId}>
+        <div className='list__header__complete'>
+          <div className="list__option">
             <span>Subject ID</span>
-            <img
-              src={arrow}
-              className={`chevron ${!sortedState.id && "active-icon"}`}
-              alt=""
-            />
           </div>
-          <div className="list__option">Mark</div>
-          <div className="list__option header__filter" onClick={sortArrayDate}>
-            Total
+          <div className="list__option">Subject Name</div>
+          <div className="list__option">
+            Mark
           </div>
-          <div className="list__option">%(Recieved)</div>
-          <div className="list__option">%(weighted)</div>
+          <div className="list__option">Total</div>
+          <div className="list__option">Grade</div>
         </div>
       ) : (
         <div className="list__header">
@@ -70,3 +65,19 @@ export default function ListHeader() {
     </>
   );
 }
+{/* <div className='list__header__complete'>
+          <div className="list__option header__filter" onClick={sortArrayId}>
+            <span>Subject ID</span>
+            <img
+              src={arrow}
+              className={`chevron ${!sortedState.id && "active-icon"}`}
+              alt=""
+            />
+          </div>
+          <div className="list__option">Mark</div>
+          <div className="list__option header__filter" onClick={sortArrayDate}>
+            Total
+          </div>
+          <div className="list__option">%(Recieved)</div>
+          <div className="list__option">%(weighted)</div>
+        </div> */}

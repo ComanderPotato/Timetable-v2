@@ -7,39 +7,7 @@
   position: relative;
 }
 
-.sidebar {
-  width: 30rem;
-  height: 50rem;
-  background-color: rgb(78, 76, 74);
-  border-radius: 1.5rem;
-  position: fixed;
-  top: 50%;
-  left: 10%;
-  transform: translate(-50%, -50%);
-  box-shadow: 0px 10px 20px -4px rgba(0, 0, 0, 0.75);
-  overflow: hidden;
-}
-.tab1 {
-  background-color: rgb(78, 76, 74);
-  width: 50%;
-  height: 4rem;
-  border-radius: 1.5rem 1.5rem 0 0 ;
-  position: absolute;
-}
-.tab2 {
-  width: 50%;
-  background-color: rgb(22, 19, 19);
 
-  height: 4rem;
-  border-radius: 1.5rem;
-  transform: translateX(100%);
-}
-.tabBar {
-  background-color: rgb(22, 19, 19);
-  width: 100%;
-  height: 4rem;
-  position: absolute;
-}
 .list__filter {
   display: flex;
   justify-content: center;

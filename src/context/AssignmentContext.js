@@ -24,9 +24,9 @@ export default function AssignmentsStateProvider({ children }) {
 
   const [state, dispatch] = useReducer(assignmentsReducer, initialState)
 
-  useEffect(() => {
-    console.log(state.assignments);
-  }, [state.assignments]);
+  // useEffect(() => {
+  //   console.log(state.assignments.filter(assignment => assignment.completed));
+  // }, [state.assignments]);
   return (
     <AssignmentsStateContext.Provider value={state}>
       <AssignmentsStateDispatchContext.Provider value={dispatch}>
@@ -99,12 +99,14 @@ function assignmentsReducer(state, action) {
     case ACTIONS.EDIT_ASSIGNMENT: {
       // sort through assignments by id === payLoad.id
       // return new array with new assignment object at position id === payLoad.id
+      const {marksRecieved, totalMarks, percentage} = payload.editedAssignment
       return {
         ...state,
         assignments: assignments.map(assignment => {
           if(assignment.id === payload.id) {
             return {
-              ...payload.editedAssignment
+              ...payload.editedAssignment,
+              recievedPercentage: (marksRecieved && totalMarks && percentage) ? ((marksRecieved / totalMarks) * percentage).toFixed(2).replace(/[.,]00$/, "") : 0,
             }
           }
           return assignment
@@ -119,14 +121,17 @@ function assignmentsReducer(state, action) {
       }
     }
     case ACTIONS.COMPLETE_ASSIGNMENT: {
-      console.log("Hello")
+      const {marksRecieved, totalMarks} = payload.marks
       return {
         ...state,
+        dropdownSelectedState: null,
         assignments: [...assignments.map(assignment => {
           if(assignment.id === payload.currAssignment.id) {
             return {
               ...payload.currAssignment,
               ...payload.marks,
+              recievedPercentage: ((marksRecieved / totalMarks) * payload.currAssignment.percentage).toFixed(2).replace(/[.]00$/, ""),
+              grade: getGrade(marksRecieved / totalMarks),
               completed: true,
             }
           }
@@ -141,4 +146,12 @@ function assignmentsReducer(state, action) {
       }
     }
   }
+}
+
+function getGrade(percentage) {
+  if (percentage >= .85) return "HD";
+  if (percentage >= .75) return "D";
+  if (percentage >= .65) return "C";
+  if (percentage >= .50) return "P";
+  return "F";
 }
